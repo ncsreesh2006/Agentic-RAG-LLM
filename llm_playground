@@ -1,0 +1,23 @@
+from llama_cpp import Llama
+
+llm = Llama(model_path = "./llama-2-7b-chat.Q4_K_S.gguf", n_ctx=512, verbose = False)
+
+retrieved_text = """
+-Food and drinks cost no money
+-Travel is not covered internationally or domestically for airplanes
+-Travel via car is covered up to $500
+"""
+
+prompt = f"""[INST]<<SYS>>
+You are a strict factual assistant. Answer ONLY using the provided context. If the answer is not in context then say "NOT IN CONTEXT".
+<</SYS>>
+
+Context:
+{retrieved_text}
+
+Q: Is travel covered internationally or domestically for airplanes?
+A: [/INST]
+"""
+
+response = llm(prompt, max_tokens = 1024, temperature = 0.95, top_p = 0.95)
+print(response["choices"][0]["text"])

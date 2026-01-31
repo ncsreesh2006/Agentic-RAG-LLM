@@ -1,0 +1,33 @@
+Technical Documentation: Project "NeuralNode" Ecosystem
+Version: 4.2
+Status: Public Release
+Date: January 2026
+1. Executive Summary
+Project NeuralNode is a comprehensive ecosystem designed to bridge the gap between traditional vector databases and graph-based retrieval mechanisms. NeuralNode 4.2 introduces "Contextual Clustering," reducing embedding retrieval errors by 40% in long-context documents. The system is built for high-throughput AI applications, supporting both text and multimodal data streams. 
+2. Architecture Overview
+The NeuralNode architecture consists of three main components:
+The Ingestor: Handles PDF, DOCX, and TXT files, breaking them into semantic chunks.
+The Semantic Engine: Generates embeddings and stores them in a vector database.
+The RAG Retriever: Employs GraphRAG to map relationships between data points. 
+3. Advanced Chunking Strategies
+To optimize for RAG, the system utilizes a hybrid approach: 
+Paragraph-Level Splitting: Ensures semantic coherence.
+Hypothetical Question Embedding (HyDE): Generates potential questions for each chunk to improve retrieval accuracy.
+Context Retention: Each chunk retains metadata, including page numbers and section headers, to ensure the LLM understands the context of the answer. 
+4. GraphRAG Implementation
+Unlike traditional vector-only RAG, NeuralNode 4.2 uses GraphRAG to map relationships. 
+Entity Extraction: The system extracts key entities (e.g., people, places, technical terms) from the document.
+Relationship Mapping: It maps how entities relate, enabling queries that require multi-hop reasoning (e.g., "How did the 2024 update affect the 2022 policy?").
+Contextual Discovery: This allows the AI to retrieve information based on structural relationships, not just semantic similarity. 
+5. Handling Long Documents and Latency
+For documents exceeding 100,000 words, NeuralNode 4.2 uses a hierarchical retrieval process:
+Initial Filtering: A fast BM25 search narrows 10,000+ files down to ~500 candidate documents.
+Vector Search: Re-ranking is applied to the candidate documents.
+LLM Reranker: An LLM-based re-ranker picks the top-N results to control costs and hallucinations. 
+6. Evaluation Metrics
+NeuralNode 4.2 is evaluated using the RAGAS framework, which measures: 
+Faithfulness: Does the answer come directly from the retrieved context?
+Answer Relevance: Does the response actually answer the user's question?
+Context Precision: Did the retriever find the right information? 
+7. Security and Data Privacy
+The system supports on-premise deployment, ensuring that data is never sent to public LLMs during the RAG process. All embeddings are encrypted at rest. 
